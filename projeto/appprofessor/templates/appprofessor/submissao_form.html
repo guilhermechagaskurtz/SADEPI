@@ -1,0 +1,65 @@
+{% extends 'appprofessor/base.html' %}
+{% load bootstrap3 %}
+
+{% block actions %}
+{% endblock %}
+
+{% block title %}
+	{% bootstrap_icon 'list-alt' %} Submissão de  projetos
+{% endblock %}
+
+{% block content %}
+<form class="form" role="form" method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+
+  {% for error in form.non_field_errors %}
+      {% bootstrap_alert error 'danger' %}
+  {% endfor %}
+  
+  {% bootstrap_field form.edital %}
+  <input type="hidden" id="url_ajax_carrega_select_programas" value="{% url 'ajax_carrega_select_programas' %}">
+
+  {% bootstrap_field form.programa %}
+  <input type="hidden" id="id_programa_inicial" value="{{ object.programa.id }}">
+  <input type="hidden" id="url_ajax_regra_campo_empresa_instituicao" value="{% url 'ajax_regra_campo_empresa_instituicao' %}">
+
+  {% bootstrap_field form.responsavel %}
+  {% bootstrap_field form.colaborador %}
+
+  <div id="area_bolsista" style="display: none;">
+    {% bootstrap_field form.bolsista %}
+  </div>
+
+  <div id="area_empresa" style="display: none;">
+    {% bootstrap_field form.nome_empresa %}
+    {% bootstrap_field form.contato_empresa %}
+  </div>
+
+  <div id="area_instituicao_beneficiada" style="display: none;">
+    {% bootstrap_field form.programa_extensao %}
+    {% bootstrap_field form.nome_instituicao_beneficiada %}
+    {% bootstrap_field form.contato_instituicao_beneficiada %}
+    {% bootstrap_field form.cnpj_instituicao_beneficiada %}
+  </div>
+	
+  {% bootstrap_field form.area %}
+  {% bootstrap_field form.titulo %}
+  {% bootstrap_field form.introducao %}
+  {% bootstrap_field form.palavras_chave %}
+  {% bootstrap_field form.motivacao %}
+  {% bootstrap_field form.objetivo %}
+  {% bootstrap_field form.metodologia %}
+  {% bootstrap_field form.referencia %}
+  {% bootstrap_field form.plano %}
+  {% bootstrap_field form.arquivo_apendice1 %} 
+
+  {%comment%}
+  {% bootstrap_form form %}
+  {%endcomment%}  
+  
+  {% buttons submit='Gravar' %}
+    <a href="javascript:history.go(-1);" class="btn btn-info" role="button">Voltar</a>
+  {% endbuttons %}
+</form>
+
+{% endblock %}

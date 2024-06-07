@@ -1,0 +1,97 @@
+{% extends 'appprofessor/base.html' %}
+{% load bootstrap3 %}
+
+{% block title %}
+	{% bootstrap_icon 'list-alt' %} Minhas Submissões
+{% endblock %}
+
+
+{% block content %}
+	<div class="panel panel-default">
+	  <div class="panel-body">
+	    <a href="{% url 'appprofessor_submissao_create' %}" class="btn btn-md btn-primary">{% bootstrap_icon 'floppy-disk' %} Submeter projeto</a>
+	  </div>
+	</div>
+		<div class="table-responsive">
+		<table class="table table-hover">
+	  		<thead>
+				<th>Edital</th>
+				<th>Programa/Linha</th>
+	  			<th>Título</th>
+	  			
+	  			<th>Colaboradores</th>
+	  			<th>Bolsista</th>
+	  			
+				<th>Status projeto</th>  
+				
+				<th>Parecer final</th>
+	  			<th class="text-center">Editar</th>
+				
+	  			<th class="text-center">Excluir</th>
+	  		</thead>
+	  		<tbody>
+	  			{% for submissao in object_list %}
+					<tr>
+						<td>
+							{% if submissao.edital %}
+								{{ submissao.edital }}
+							{% endif %}
+						</td>
+						<td>{{ submissao.programa }}</td>
+						<td>{{ submissao.titulo }}</td>
+						
+						<td>
+							{% for c in submissao.colaborador.all %}
+								{{ c }}
+								{% if forloop.last %}
+								.
+								{% else %}
+								,
+								{% endif %}
+							{% empty %}
+								<i>Nenhum colaborador informado</i>
+							{% endfor %}
+						</td>
+						<td>
+							{% if submissao.bolsista %}
+								{% bootstrap_icon 'ok' size='sm' %}
+							{% endif %}						
+						</td>						
+						<td>
+							{% if submissao.avaliacao.comissao %}
+                                {{ submissao.avaliacao.comissao.get_status_display|upper }}
+                            {% else %}
+                                EM EDIÇÃO
+                            {% endif %}
+						</td>
+						<td>
+							{% if submissao.get_parecer_final %}
+								<a href="{{ submissao.get_parecer_final.url }}" target="_blank" class="btn btn-sm btn-primary">
+									{% bootstrap_icon 'download' %}
+								</a>
+							{% else %}
+								<a href="" target="_blank" class="btn btn-sm btn-primary disabled">
+									{% bootstrap_icon 'download' %}
+								</a>
+							{% endif %}
+						</td>
+						<td class="text-center">
+							{% if submissao.permite_alterar %}
+								{% bootstrap_button content='' href=submissao.get_professor_absolute_url button_type='link' icon='edit' button_class='btn btn-primary' size='sm' %}
+							{% else %}
+								{% bootstrap_button content='' href='#' button_type='link' icon='edit' button_class='btn btn-primary disabled' size='sm' %}
+							{% endif %}
+					  	</td>						  
+					  	<td class="text-center">
+							{% if submissao.permite_alterar%}
+								{% bootstrap_button content='' href=submissao.get_professor_delete_url button_type='link' icon='trash' button_class='btn btn-danger' size='sm' %}
+							{% else %}
+								{% bootstrap_button content='' href='#' button_type='link' icon='trash' button_class='btn btn-danger disabled' size='sm' %}
+							{% endif %}
+						</td>
+					</tr>
+				{% endfor %}
+	  		</tbody>
+		</table>
+	</div>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'appprofessor/base.html' %}
+{% load bootstrap3 %}
+
+{% block title %}
+	{% bootstrap_icon 'check' %} Minhas Avaliações
+{% endblock %}
+
+
+{% block content %}
+	
+	<div class="table-responsive">
+		<table class="table table-hover">
+	  		<thead>
+				<th>Edital</th>  
+				<th>Programa</th>  
+				<th>Projeto a avaliar</th>	  			
+				<th>Designação</th>
+				<th>Data parecer</th>
+	  			<th class="text-center">Parecer</th>
+	  		</thead>
+	  		<tbody>
+	  			{% for avaliacao in object_list %}
+					<tr>
+						<td>{{ avaliacao.submissao.edital }}</td>
+						<td>{{ avaliacao.submissao.programa }}</td>	
+						<td>{{ avaliacao.submissao }}</td>
+						<td>
+							{% if user == avaliacao.avaliador_responsavel %}
+								<span class="label label-primary">Avaliador responsável</span>
+							{% endif %}
+							{% if user == avaliacao.avaliador_suplente %}
+								<span class="label label-warning">Avaliador suplente</span>
+							{% endif %}
+						</td>
+						<td>
+							{% if user == avaliacao.avaliador_responsavel %}
+								{% if avaliacao.dt_avaliacao_responsavel %}
+									<span class="label label-success">
+										{{ avaliacao.dt_avaliacao_responsavel|date:'d/m/Y' }}
+									</span>
+								{% else %}
+									<span class="label label-warning">
+										Você ainda não deu seu parecer
+									</span>
+								{% endif %}
+							{% endif %}
+							{% if user == avaliacao.avaliador_suplente %}
+								{% if avaliacao.dt_avaliacao_suplente %}
+									<span class="label label-success">
+										{{ avaliacao.dt_avaliacao_suplente|date:'d/m/Y' }}
+									</span>
+								{% else %}
+									<span class="label label-warning">
+										Você ainda não deu seu parecer
+									</span>
+								{% endif %}
+							{% endif %}
+						</td>
+						<td class="text-center">
+							{% if user == avaliacao.avaliador_responsavel %}
+								{% bootstrap_button content='' href=avaliacao.get_avaliacao_responsavel_url button_type='link' icon='check' button_class='btn btn-primary' size='sm' %}
+							{% endif %}
+							{% if user == avaliacao.avaliador_suplente %}
+								{% bootstrap_button content='' href=avaliacao.get_avaliacao_suplente_url button_type='link' icon='check' button_class='btn btn-primary' size='sm' %}
+							{% endif %}
+					    </td>
+					</tr>
+				{% endfor %}
+	  		</tbody>
+		</table>
+	</div>
+{% endblock %}

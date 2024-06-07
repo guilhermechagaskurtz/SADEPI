@@ -1,0 +1,73 @@
+{% extends 'core/base.html' %}
+{% load bootstrap3 %}
+
+{% block title %}
+	{% bootstrap_icon 'glass' %} Editais
+{% endblock %}
+
+{% block content %}
+	<div class="panel panel-default">
+	  <div class="panel-body">
+	    <a href="{% url 'edital_create' %}" class="btn btn-md btn-primary">{% bootstrap_icon 'floppy-disk' %} Cadastrar Edital</a>
+	  </div>
+	</div>
+	<table class="table table-hover">
+  		<thead>
+  			<th>Numero</th>
+			<th>Descrição</th>
+			<th>Fomento</th>
+			<th>Programa</th>
+  			<th>Abertura</th>
+			<th>Fechamento</th>
+			<th>Link do edital</th>  
+			<th>Bolsista</th>
+			<th class="text-center">Submissões</th>
+  			<th class="text-center">Editar</th>
+  			<th class="text-center">Excluir</th>
+  		</thead>
+
+  		<tbody>
+  			{% for edital in object_list %}
+				<tr>
+					<td>{{ edital.numero }}</td>
+					<td>{{ edital.descricao }}</td>
+					<td>{% if edital.orgao %}
+							{{ edital.orgao }}
+					 	{% endif %}
+					</td>
+					<td>
+						{% for c in edital.programa.all %}
+							{{ c }}
+							{% if forloop.last %}
+							.
+							{% else %}
+							,
+							{% endif %}
+						{% empty %}
+							<i>Nenhum programa informado</i>
+						{% endfor %}
+					</td> 
+					<td>{{ edital.abertura|date:'d/m/Y' }}</td>
+					<td>{{ edital.encerra|date:'d/m/Y' }}</td>
+					<td>{% if edital.link_edital %}
+						   {{ edital.link_edital }}
+					    {% endif %}
+				    </td>
+					<td>{% if edital.bolsista %}
+							{% bootstrap_icon 'ok' size='sm' %}
+						{% endif %}
+					</td>
+					<td class="text-center">
+                        {% include 'edital/includes/_modal_botoes_submissoes.html' %}
+                    </td>
+					<td class="text-center">
+				          {% bootstrap_button content='' href=edital.get_absolute_url button_type='link' icon='edit' button_class='btn btn-primary' size='sm' %}
+				    </td>
+				    <td class="text-center">
+				          {% bootstrap_button content='' href=edital.get_delete_url button_type='link' icon='trash' button_class='btn btn-danger' size='sm' %}
+				    </td>
+				</tr>
+			{% endfor %}
+  		</tbody>
+	</table>
+{% endblock %}

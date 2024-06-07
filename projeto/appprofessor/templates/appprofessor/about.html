@@ -1,0 +1,58 @@
+{% extends 'appprofessor/base.html' %}
+{% load bootstrap3 %}
+{% load static %}
+
+{% block title %}
+	{% bootstrap_icon 'question-sign' %} Sobre
+{% endblock %}
+
+{% block content %}
+	<center>
+	<!-- <img src="{% static 'core/img/logoLasimon.png' %}"
+         class="img-responsive"> -->
+    </center>
+
+	<h3>Projeto em parceria entre Laboratório de Práticas (Ciência da Computação e Sistemas de Informação), Setor de Apoio e Desenvolvimento de Projetos e Inovação (SADEPI)</h3>
+	<h4>Versão:</h4>
+	<ul>
+		<li>1.0 de Dezembro de 2019; 1.1 de Março de 2020; 1.2 de Maio de 2020</li>
+		<li>2.0 de Julho de 2020; 2.1 de Agosto de 2020</li>	
+	</ul>
+	<h4>Apoio:</h4>
+	<ul>
+		<li>CNPq e Universidade Franciscana</li>
+	</ul>
+	<h4>
+		Colaboradores:
+	</h4>
+	<ul> 
+		<li><strong>UFN</strong></li>
+		
+			<ul>
+				<li>Professores:</li>
+				<ul>
+					<li>Alexandre Zamberlan</li>
+					<li>Fernando Prass</li>
+					<li>Reiner Perozzo</li>
+					<li>Sylvio Garcia Vieira - Coordenador Laboratório de Práticas</li>
+				</ul>
+				<li>Alunos:</li>
+				<ul>
+					<li>Pierre Fenner - Ciência da Computação</li>
+					<li>Patrick Müller - Sistemas de Informação</li>
+					<li>Eduardo Palharini - Sistemas de Informação</li>
+				</ul>
+				<li>SADEPI:</li>
+				<ul>
+					<li>Marcos Alexandre Alves - Pró-reitor de Pós-graduação e Pesquisa</li>
+					<li>Ivana Zanella da Silva - Diretora da Unidade de Pesquisa</li>
+					<li>Cris Rossini</li>
+					<li>Scheila Holveg</li>
+				</ul>
+			</ul>
+		<li><strong>Consultoria:</strong></li>
+			<ul>
+				<li><a href="http://site.ersistemas.info/" target="_blank"> Empresa ER Sistemas</a> - Robertson Ebling dos Santos (egresso do curso de Sistemas de Informação)</li>
+			</ul>
+	</ul>
+{% endblock %}

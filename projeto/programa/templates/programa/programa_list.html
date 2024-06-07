@@ -1,0 +1,50 @@
+{% extends 'core/base.html' %}
+{% load bootstrap3 %}
+
+{% block title %}
+	{% bootstrap_icon 'grain' %} Programa ou Linha de Trabalho
+{% endblock %}
+
+{% block content %}
+	<div class="panel panel-default">
+	  <div class="panel-body">
+	    <a href="{% url 'programa_create' %}" class="btn btn-md btn-primary">{% bootstrap_icon 'floppy-disk' %} Cadastrar programa ou linha</a>
+	  </div>
+	</div>
+	<table class="table table-hover">
+  		<thead>
+  			<th>Nome</th>
+			<th>Sigla</th>
+			<th class="text-center">Tem empresa parceira</th>
+			<th class="text-center">Tem instituição beneficiada</th>
+  			<th class="text-center">Editar</th>
+  			<th class="text-center">Excluir</th>
+  		</thead>
+
+  		<tbody>
+  			{% for programa in object_list %}
+				<tr>
+					<td>{{ programa.nome }}</td>
+					<td>{{ programa.sigla }}</td>
+					<td class="text-center">
+						{% if programa.tem_empresa_parceira %}
+							{% bootstrap_icon 'ok' size='sm' %}
+						{% endif %}
+					</td>
+					<td class="text-center">
+						{% if programa.tem_instituicao_beneficiada %}
+							{% bootstrap_icon 'ok' size='sm' %}
+						{% endif %}
+				 	</td>  
+					
+					<td class="text-center">
+				          {% bootstrap_button content='' href=programa.get_absolute_url button_type='link' icon='edit' button_class='btn btn-primary' size='sm' %}
+				    </td>
+				    <td class="text-center">
+				          {% bootstrap_button content='' href=programa.get_delete_url button_type='link' icon='trash' button_class='btn btn-danger' size='sm' %}
+				    </td>
+				</tr>
+			{% endfor %}
+  		</tbody>
+	</table>
+{% endblock %}

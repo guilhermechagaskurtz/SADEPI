@@ -1,0 +1,27 @@
+{% extends 'core/base.html' %}
+{% load bootstrap3 %}
+{% load widget_tweaks %}
+
+{% block actions %}
+{% endblock %}
+
+{% block title %}
+	{% bootstrap_icon 'tower' %} Cadastro de instituição
+{% endblock %}
+
+{% block content %}
+<form class="form" role="form" method="POST">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {% bootstrap_field form.nome %}
+    {% bootstrap_field form.sigla %}
+    {% bootstrap_field form.site %}
+    {% bootstrap_field form.contato %}
+    {% bootstrap_field form.email %}
+    {% bootstrap_field form.telefone|add_class:'mask_tel_celular' %}
+
+    {% buttons submit='Gravar' %}
+       <a href="javascript:history.go(-1);" class="btn btn-info" role="button">Voltar</a>
+    {% endbuttons %}
+</form>
+{% endblock %}

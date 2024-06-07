@@ -1,0 +1,282 @@
+{% extends 'appprofessor/base.html' %}
+{% load bootstrap3 %}
+{% load static %}
+{% block actions %}
+{% endblock %}
+
+{% block title %}
+{% bootstrap_icon 'user' %} Produção Científica do Professor
+{% endblock %}
+
+{% block content %}
+
+<form class="form" role="form" method="POST" name="producao_cientifica">
+
+  {% csrf_token %}
+  {{ form.non_field_errors }}
+  {%comment%}
+  {% bootstrap_form form %}
+  {%endcomment%}
+
+  <table class="table table-condensed table-responsive">
+    <thead>
+      <tr>
+        <th><h3>Produção Científica a partir de: <span class="label label-warning">{{ object.get_tres_anos_atras }}</span></h3> </th>
+        <th><h3>Quantidade</h3></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ form.pc_artigos_qualis_a1_cinco_autores.label }}</td>
+        <td onfocusout="change()">{{ form.pc_artigos_qualis_a1_cinco_autores }}</td>
+      </tr>
+      <tr>
+        <td>{{ form.pc_artigos_qualis_a1_mais_cinco_autores_primeiro_ultimo.label }}</td>
+        <td onfocusout="change()">{{ form.pc_artigos_qualis_a1_mais_cinco_autores_primeiro_ultimo }}</td>
+      </tr>
+      <tr>
+        <td>{{ form.pc_artigos_qualis_a1_mais_cinco_autores_demais.label }}</td>
+        <td onfocusout="change()">{{ form.pc_artigos_qualis_a1_mais_cinco_autores_demais }}</td>
+      </tr>
+      <tr>
+        <td>{{ form.pc_artigos_qualis_a2_cinco_autores.label }}</td>
+        <td onfocusout="change()">{{ form.pc_artigos_qualis_a2_cinco_autores }}</td>
+      </tr>
+      <tr>
+        <td>{{ form.pc_artigos_qualis_a2_mais_cinco_autores_primeiro_ultimo.label }}</td>
+        <td onfocusout="change()">{{ form.pc_artigos_qualis_a2_mais_cinco_autores_primeiro_ultimo }}</td>
+      </tr>
+      <tr>
+        <td>{{ form.pc_artigos_qualis_a2_mais_cinco_autores_demais.label }}</td>
+        <td onfocusout="change()">{{ form.pc_artigos_qualis_a2_mais_cinco_autores_demais }}</td>
+      </tr>
+      <tr>
+        <td>{{ form.pc_artigos_qualis_b1_b2_cinco_autores.label }}</td>
+        <td onfocusout="change()">{{ form.pc_artigos_qualis_b1_b2_cinco_autores }}</td>
+      </tr>
+      <tr>
+        <td>{{ form.pc_artigos_qualis_b1_b2_mais_cinco_autores_primeiro_ultimo.label }}</td>
+        <td onfocusout="change()">{{ form.pc_artigos_qualis_b1_b2_mais_cinco_autores_primeiro_ultimo }}</td>
+      </tr>
+      <tr>
+        <td>{{ form.pc_artigos_qualis_b1_b2_mais_cinco_autores_demais.label }}</td>
+        <td onfocusout="change()">{{ form.pc_artigos_qualis_b1_b2_mais_cinco_autores_demais }}</td>
+      </tr>
+      <tr>
+        <td>{{ form.pc_artigos_qualis_b3_b4_cinco_autores.label }}</td>
+        <td onfocusout="change()">{{ form.pc_artigos_qualis_b3_b4_cinco_autores }}</td>
+      </tr>
+      <tr>
+        <td>{{ form.pc_artigos_qualis_b3_b4_mais_cinco_autores_primeiro_ultimo.label }}</td>
+        <td onfocusout="change()">{{ form.pc_artigos_qualis_b3_b4_mais_cinco_autores_primeiro_ultimo }}</td>
+      </tr>
+      <tr>
+        <td>{{ form.pc_artigos_qualis_b3_b4_mais_cinco_autores_demais.label }}</td>
+        <td onfocusout="change()">{{ form.pc_artigos_qualis_b3_b4_mais_cinco_autores_demais }}</td>
+      </tr>
+      <tr>
+        <td>{{ form.pc_artigos_qualis_b5_c_cinco_autores.label }}</td>
+        <td onfocusout="change()">{{ form.pc_artigos_qualis_b5_c_cinco_autores }}</td>
+      </tr>
+      <tr>
+        <td>{{ form.pc_artigos_qualis_b5_c_mais_cinco_autores_primeiro_ultimo.label }}</td>
+        <td onfocusout="change()">{{ form.pc_artigos_qualis_b5_c_mais_cinco_autores_primeiro_ultimo }}</td>
+      </tr>
+      <tr>
+        <td>{{ form.pc_artigos_qualis_b5_c_mais_cinco_autores_demais.label }}</td>
+        <td onfocusout="change()">{{ form.pc_artigos_qualis_b5_c_mais_cinco_autores_demais }}</td>
+      </tr>
+      <tr>
+        <td>{{ form.pc_trabalhos_anais_eventos.label }}</td>
+        <td onfocusout="change()">{{ form.pc_trabalhos_anais_eventos }} 
+          <div class="text-danger">{{ form.pc_trabalhos_anais_eventos.errors }}</div>
+        </td>
+      </tr>
+      <tr>
+        <td>{{ form.pc_resumos_anais_eventos.label }}</td>
+        <td onfocusout="change()">{{ form.pc_resumos_anais_eventos }}
+          <div class="text-danger">{{ form.pc_resumos_anais_eventos.errors }}</div>
+        </td>
+      </tr>
+      <tr>
+        <td>{{ form.pc_licenca_direito.label }}</td>
+        <td onfocusout="change()">{{ form.pc_licenca_direito }}</td>
+      </tr>
+      <tr>
+        <td>{{ form.pc_autoria_livros.label }}</td>
+        <td onfocusout="change()">{{ form.pc_autoria_livros }}</td>
+      </tr>
+      <tr>
+        <td>{{ form.pc_autoria_livros_capitulos.label }}</td>
+        <td onfocusout="change()">{{ form.pc_autoria_livros_capitulos }}</td>
+      </tr>
+      <tr>
+        <td>{{ form.pc_orientador_teses_doutorado.label }}</td>
+        <td onfocusout="change()">{{ form.pc_orientador_teses_doutorado }}
+          <div class="text-danger">{{ form.pc_orientador_teses_doutorado.errors }}</div>
+        </td>
+      </tr>
+      <tr>
+        <td>{{ form.pc_orientador_mestrado.label }}</td>
+        <td onfocusout="change()">{{ form.pc_orientador_mestrado }}
+          <div class="text-danger">{{ form.pc_orientador_mestrado.errors }}</div>
+        </td>
+      </tr>
+      <tr>
+        <td>{{ form.pc_orientador_iniciacao_cientifica.label }}</td>
+        <td onfocusout="change()">{{ form.pc_orientador_iniciacao_cientifica }}
+          <div class="text-danger">{{ form.pc_orientador_iniciacao_cientifica.errors }}</div>
+        </td>
+      </tr>
+      <tr>
+        <td>{{ form.pc_orientador_trabalho_final_curso.label }}</td>
+        <td onfocusout="change()">{{ form.pc_orientador_trabalho_final_curso }}
+          <div class="text-danger">{{ form.pc_orientador_trabalho_final_curso.errors }}</div>
+        </td>
+      </tr>
+      <tr>
+        <td>{{ form.total_producoes.label }}</td>
+        <td>{{ form.total_producoes }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+
+
+  <!-- <table class="table table-condensed table-responsive">
+    <thead>
+      <tr>
+        <th><h3>Produção Científica a partir de: <span class="label label-warning">{{ object.get_tres_anos_atras }}</span></h3> </th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td onfocusout="change()">{% bootstrap_field form.pc_artigos_qualis_a1_cinco_autores %}</td>
+      </tr>
+      <tr>
+        <td onfocusout="change()">{% bootstrap_field form.pc_artigos_qualis_a1_mais_cinco_autores_primeiro_ultimo %}</td>
+      </tr>
+      <tr>
+        <td onfocusout="change()">{% bootstrap_field form.pc_artigos_qualis_a1_mais_cinco_autores_demais%}</td>
+      </tr>
+      <tr>
+        <td onfocusout="change()">{% bootstrap_field form.pc_artigos_qualis_a2_cinco_autores%}</td>
+      </tr>
+      <tr>
+        <td onfocusout="change()">{% bootstrap_field form.pc_artigos_qualis_a2_mais_cinco_autores_primeiro_ultimo%}</td>
+      </tr>
+      <tr>
+        <td onfocusout="change()">{% bootstrap_field form.pc_artigos_qualis_a2_mais_cinco_autores_demais%}</td>
+      </tr>
+      <tr>
+        <td onfocusout="change()">{% bootstrap_field form.pc_artigos_qualis_b1_b2_cinco_autores%}</td>
+      </tr>
+      <tr>
+        <td onfocusout="change()">{% bootstrap_field form.pc_artigos_qualis_b1_b2_mais_cinco_autores_primeiro_ultimo%}</td>
+      </tr>
+      <tr>
+        <td onfocusout="change()">{% bootstrap_field form.pc_artigos_qualis_b1_b2_mais_cinco_autores_demais%}</td>
+      </tr>
+      <tr>
+        <td onfocusout="change()">{% bootstrap_field form.pc_artigos_qualis_b3_b4_cinco_autores%}</td>
+      </tr>
+      <tr>
+        <td onfocusout="change()">{% bootstrap_field form.pc_artigos_qualis_b3_b4_mais_cinco_autores_primeiro_ultimo%}</td>
+      </tr>
+      <tr>
+
+        <td onfocusout="change()">{% bootstrap_field form.pc_artigos_qualis_b3_b4_mais_cinco_autores_demais%}</td>
+      </tr>
+      <tr>
+        <td onfocusout="change()">{% bootstrap_field form.pc_artigos_qualis_b5_c_cinco_autores%}</td>
+      </tr>
+      <tr>
+        <td onfocusout="change()">{% bootstrap_field form.pc_artigos_qualis_b5_c_mais_cinco_autores_primeiro_ultimo%}</td>
+      </tr>
+      <tr>
+        <td onfocusout="change()">{% bootstrap_field form.pc_artigos_qualis_b5_c_mais_cinco_autores_demais%}</td>
+      </tr>
+      <tr>
+        <td onfocusout="change()">{% bootstrap_field form.pc_trabalhos_anais_eventos%}</td>
+      </tr>
+      <tr>
+        <td onfocusout="change()">{% bootstrap_field form.pc_resumos_anais_eventos%}</td>
+      </tr>
+      <tr>
+        <td onfocusout="change()">{% bootstrap_field form.pc_licenca_direito%}</td>
+      </tr>
+      <tr>
+        <td onfocusout="change()">{% bootstrap_field form.pc_autoria_livros%}</td>
+      </tr>
+      <tr>
+        <td onfocusout="change()">{% bootstrap_field form.pc_autoria_livros_capitulos%}</td>
+      </tr>
+      <tr>
+        <td onfocusout="change()">{% bootstrap_field form.pc_orientador_teses_doutorado%}</td>
+      </tr>
+      <tr>
+        <td onfocusout="change()">{% bootstrap_field form.pc_orientador_mestrado%}</td>
+      </tr>
+      <tr>
+        <td onfocusout="change()">{% bootstrap_field form.pc_orientador_iniciacao_cientifica%}</td>
+      </tr>
+      <tr>
+        <td onfocusout="change()">{% bootstrap_field form.pc_orientador_trabalho_final_curso%}</td>
+      </tr>
+      <tr>
+        <td>{% bootstrap_field form.total_producoes%}</td>
+      </tr>
+    </tbody>
+  </table> -->
+
+  {% buttons submit='Gravar' %}
+  <a href="{% url 'appprofessor_home' %}" class="btn btn-info" role="button">Voltar</a>
+  {% endbuttons %}
+</form>
+
+<script type="text/javascript">
+  function change() {
+    let form = document.forms.producao_cientifica;
+    let total = form.elements.total_producoes;
+    let qualis_a1_cinco_autores = parseInt(form.elements.pc_artigos_qualis_a1_cinco_autores.value) || 0;
+    let qualis_a1_mais_cinco_autores_primeiro_ultimo = parseInt(form.elements.pc_artigos_qualis_a1_mais_cinco_autores_primeiro_ultimo.value) || 0;
+    let qualis_a1_mais_cinco_autores_demais = parseInt(form.elements.pc_artigos_qualis_a1_mais_cinco_autores_demais.value) || 0;
+    let qualis_a2_cinco_autores = parseInt(form.elements.pc_artigos_qualis_a2_cinco_autores.value) || 0;
+    let qualis_a2_mais_cinco_autores_primeiro_ultimo = parseInt(form.elements.pc_artigos_qualis_a2_mais_cinco_autores_primeiro_ultimo.value) || 0;
+    let qualis_a2_mais_cinco_autores_demais = parseInt(form.elements.pc_artigos_qualis_a2_mais_cinco_autores_demais.value) || 0;
+    let qualis_b1_b2_cinco_autores = parseInt(form.elements.pc_artigos_qualis_b1_b2_cinco_autores.value) || 0;
+    let qualis_b1_b2_mais_cinco_autores_primeiro_ultimo = parseInt(form.elements.pc_artigos_qualis_b1_b2_mais_cinco_autores_primeiro_ultimo.value) || 0;
+    let qualis_b1_b2_mais_cinco_autores_demais = parseInt(form.elements.pc_artigos_qualis_b1_b2_mais_cinco_autores_demais.value) || 0;
+    let qualis_b3_b4_cinco_autores = parseInt(form.elements.pc_artigos_qualis_b3_b4_cinco_autores.value) || 0;
+    let qualis_b3_b4_mais_cinco_autores_primeiro_ultimo = parseInt(form.elements.pc_artigos_qualis_b3_b4_mais_cinco_autores_primeiro_ultimo.value) || 0;
+    let qualis_b3_b4_mais_cinco_autores_demais = parseInt(form.elements.pc_artigos_qualis_b3_b4_mais_cinco_autores_demais.value) || 0;
+    let qualis_b5_c_cinco_autores = parseInt(form.elements.pc_artigos_qualis_b5_c_cinco_autores.value) || 0;
+    let qualis_b5_c_mais_cinco_autores_primeiro_ultimo = parseInt(form.elements.pc_artigos_qualis_b5_c_mais_cinco_autores_primeiro_ultimo.value) || 0;
+    let qualis_b5_c_mais_cinco_autores_demais = parseInt(form.elements.pc_artigos_qualis_b5_c_mais_cinco_autores_demais.value) || 0;
+    let trabalhos_anais_eventos = parseInt(form.elements.pc_trabalhos_anais_eventos.value) || 0;
+    let resumos_anais_eventos = parseInt(form.elements.pc_resumos_anais_eventos.value) || 0;
+    let licenca_direito = parseInt(form.elements.pc_licenca_direito.value) || 0;
+    let autoria_livros = parseInt(form.elements.pc_autoria_livros.value) || 0;
+    let autoria_livros_capitulos = parseInt(form.elements.pc_autoria_livros_capitulos.value) || 0;
+    let orientador_teses_doutorado = parseInt(form.elements.pc_orientador_teses_doutorado.value) || 0;
+    let orientador_mestrado = parseInt(form.elements.pc_orientador_mestrado.value) || 0;
+    let orientador_iniciacao_cientifica = parseInt(form.elements.pc_orientador_iniciacao_cientifica.value) || 0;
+    let orientador_trabalho_final_curso = parseInt(form.elements.pc_orientador_trabalho_final_curso.value) || 0;
+
+
+
+    total.value = qualis_a1_cinco_autores + qualis_a1_mais_cinco_autores_primeiro_ultimo + qualis_a1_mais_cinco_autores_demais
+      + qualis_a2_cinco_autores + qualis_a2_mais_cinco_autores_primeiro_ultimo + qualis_a2_mais_cinco_autores_demais
+      + qualis_b1_b2_cinco_autores + qualis_b1_b2_mais_cinco_autores_primeiro_ultimo + qualis_b1_b2_mais_cinco_autores_demais
+      + qualis_b3_b4_cinco_autores + qualis_b3_b4_mais_cinco_autores_primeiro_ultimo + qualis_b3_b4_mais_cinco_autores_demais
+      + qualis_b5_c_cinco_autores + qualis_b5_c_mais_cinco_autores_primeiro_ultimo + qualis_b3_b4_mais_cinco_autores_primeiro_ultimo
+      + trabalhos_anais_eventos + resumos_anais_eventos + licenca_direito + autoria_livros
+      + autoria_livros_capitulos + orientador_teses_doutorado + orientador_mestrado + orientador_iniciacao_cientifica
+      + orientador_trabalho_final_curso;
+  }
+  window.onload = (function () { change() });
+</script>
+
+{% endblock %}

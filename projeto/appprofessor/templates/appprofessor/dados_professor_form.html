@@ -1,0 +1,34 @@
+{% extends 'appprofessor/base.html' %}
+{% load bootstrap3 %}
+{% load widget_tweaks %}
+
+{% block actions %}
+{% endblock %}
+
+{% block title %}
+	{% bootstrap_icon 'user' %} Meus Dados
+{% endblock %}
+
+{% block content %}
+<form class="form" role="form" method="POST">
+  {% csrf_token %}
+  {{ form.non_field_errors }}
+  
+    {% bootstrap_field form.nome %}
+    {% bootstrap_field form.email %}
+    {% bootstrap_field form.area_conhecimento_cnpq %}
+    {% bootstrap_field form.curso_graduacao_vinculado %}
+    {% bootstrap_field form.curso_pos_graduacao %}
+    {% bootstrap_field form.grupo_pesquisa %}
+    {% bootstrap_field form.data_nasc|add_class:'mask_data' %}
+    {% bootstrap_field form.cpf|add_class:'mask_cpf' %}
+    {% bootstrap_field form.rg %}
+    {% bootstrap_field form.matricula %}
+    {% bootstrap_field form.lattes %}
+    {% bootstrap_field form.instituicao %}
+   
+  {% buttons submit='Gravar' %}
+    <a href="javascript:history.go(-1);" class="btn btn-info" role="button">Voltar</a>
+  {% endbuttons %}
+</form>
+{% endblock %}

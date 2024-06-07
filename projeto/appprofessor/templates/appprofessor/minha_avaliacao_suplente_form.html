@@ -1,0 +1,171 @@
+{% extends 'appprofessor/base.html' %}
+{% load bootstrap3 %}
+
+{% block actions %}
+{% endblock %}
+
+{% block title %}
+	{% bootstrap_icon 'check' %} Minha avaliação de  projeto
+{% endblock %}
+
+{% block content %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Detalhes da submissão</h3>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                <strong>Título:</strong><br>{{ object.submissao.titulo }}
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                <strong>Designação:</strong><br>
+                <span class="label label-primary">Você foi designado como Avaliador suplente</span>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                <strong>Edital:</strong><br>{{ object.submissao.edital }}
+                <br><br><strong>Programa:</strong><br>{{ object.submissao.programa }}
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                <strong>Área:</strong><br>{{ object.submissao.area }}
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <strong>Introdução:</strong>
+                <p class="text-justify">
+                    {{ object.submissao.introducao }}
+                </p>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <strong>Justificativa:</strong>
+                <p class="text-justify">
+                    {{ object.submissao.motivacao }}
+                </p>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <strong>Objetivos:</strong>
+                <p class="text-justify">
+                    {{ object.submissao.objetivo|linebreaks }}
+                </p>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <strong>Materiais e métodos:</strong>
+                <p class="text-justify">
+                    {{ object.submissao.metodologia|linebreaks }}
+                </p>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <strong>Referências:</strong>
+                <p class="text-justify">
+                    {{ object.submissao.referencia|linebreaks }}
+                </p>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <strong>Plano de trabalho:</strong>
+                <p class="text-justify">
+                    {{ object.submissao.plano|linebreaks }}
+                </p>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <strong>Arquivo apêndice (imagem que ilustra processo metodológico ou plano de trabalho):</strong>
+                <p class="text-justify">
+                    {% if object.submissao.arquivo_apendice1 %} 
+                      <a href="{{ object.submissao.arquivo_apendice1.url }}" target="_blank" class="btn btn-sm btn-success">
+                        {% bootstrap_icon 'download' %}
+                      </a>
+                    {% else %}
+                      <a href="" target="_blank" class="btn btn-sm btn-danger disabled">
+                        {% bootstrap_icon 'download' %}
+                      </a>
+                    {% endif %} 
+                  </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Sua avaliação</h3>
+    </div>
+    <div class="panel-body">
+        <form class="form" role="form" method="POST">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            <table class="table table-condensed table-responsive">
+                <thead>
+                    <tr>
+                    <th>Mérito do projeto</th><th>Pontuação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                          {% if  object.submissao.programa.tem_instituicao_beneficiada or submissao.programa.tem_instituicao_beneficiada %}
+                            O projeto leva conhecimento da UFN para a sociedade e as ações contemplam os programas institucionais de extensão?
+                          {% else %}
+                            {{ form.merito_projeto_relevancia_suplente.label }}
+                          {% endif %}
+                          <br><small>Ajuda: {{form.merito_projeto_relevancia_suplente.help_text}}</small>
+                        </td>
+                        <td>
+                            {{ form.merito_projeto_relevancia_suplente }}
+                            <div class="text-danger">{{ form.merito_projeto_relevancia_suplente.errors }}</div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          {% if  object.submissao.programa.tem_instituicao_beneficiada or submissao.programa.tem_instituicao_beneficiada %}
+                            A justificativa é clara e fundamentada?
+                          {% else %}
+                            {{ form.merito_projeto_justificativa_suplente.label }}
+                          {% endif %}
+                          <br><small>Ajuda: {{form.merito_projeto_justificativa_suplente.help_text}}</small>
+                        </td>
+                        <td>
+                          {{ form.merito_projeto_justificativa_suplente }}
+                          <div class="text-danger">{{ form.merito_projeto_justificativa_suplente.errors }}</div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          {% if  object.submissao.programa.tem_instituicao_beneficiada or submissao.programa.tem_instituicao_beneficiada %}
+                            Os aspectos metodológicos ou ações do projeto contemplam os objetivos propostos?
+                          {% else %}
+                            {{ form.merito_projeto_metodologia_suplente.label }}
+                          {% endif %}
+                          <br><small>Ajuda: {{form.merito_projeto_metodologia_suplente.help_text}}}</small> 
+                        </td>
+                        <td>
+                          {{ form.merito_projeto_metodologia_suplente }}
+                          <div class="text-danger">{{ form.merito_projeto_metodologia_suplente.errors }}</div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          {% if  object.submissao.programa.tem_instituicao_beneficiada or submissao.programa.tem_instituicao_beneficiada %}
+                            As metas e os resultados esperados geram impacto da atividade de extensão na instituição e na comunidade?
+                          {% else %}
+                            {{ form.merito_projeto_plano_atividades_suplente.label }}
+                          {% endif %}
+                          <br><small>Ajuda: {{form.merito_projeto_plano_atividades_suplente.help_text}}}</small>
+                        </td>
+                        <td>
+                          {{ form.merito_projeto_plano_atividades_suplente }}
+                          <div class="text-danger">{{ form.merito_projeto_plano_atividades_suplente.errors }}</div>
+                        </td>
+                </tbody>
+            </table>
+            {% bootstrap_field form.parecer_avaliador_suplente %}
+            {% buttons submit='Gravar' %}
+                <a href="javascript:history.go(-1);" class="btn btn-info" role="button">Voltar</a>
+            {% endbuttons %}
+        </form>
+    </div>
+</div>
+{% endblock %}

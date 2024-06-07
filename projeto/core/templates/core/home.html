@@ -1,0 +1,22 @@
+{% extends 'core/base.html' %}
+{% load bootstrap3 %}
+{% load static %}
+
+{% block title %}
+	{% bootstrap_icon 'home' %}
+{% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+      <center>
+            <img src="{% static 'core/img/sadepi.jpg' %}" class="img-responsive" style="max-width: 15%;">
+
+            <h1>SISGEP-SADEPI</h1>
+            <h2>Sistema de Gestão de Projetos do <br>Setor de Apoio e Desenvolvimento em Projetos de Inovação</h2>
+            <br>
+            <h3>Visão do ADMINISTRADOR</h3>
+	</center>
+{% endif %}
+
+{% endblock %}

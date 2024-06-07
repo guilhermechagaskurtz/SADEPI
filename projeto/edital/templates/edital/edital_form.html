@@ -1,0 +1,28 @@
+{% extends 'core/base.html' %}
+{% load bootstrap3 %}
+{% load widget_tweaks %}
+
+{% block actions %}
+{% endblock %}
+
+{% block title %}
+	{% bootstrap_icon 'glass' %} Cadastro de Editais
+{% endblock %}
+
+{% block content %}
+<form class="form" role="form" method="POST">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {% bootstrap_field form.numero %}
+    {% bootstrap_field form.descricao %}
+    {% bootstrap_field form.orgao %}
+    {% bootstrap_field form.programa %}
+    {% bootstrap_field form.abertura|add_class:'mask_data' %}
+    {% bootstrap_field form.encerra|add_class:'mask_data' %}
+    {% bootstrap_field form.link_edital %}
+    {% bootstrap_field form.bolsista %}
+    {% buttons submit='Gravar' %}
+    <a href="javascript:history.go(-1);" class="btn btn-info" role="button">Voltar</a>
+    {% endbuttons %}
+</form>
+{% endblock %}
